@@ -86,6 +86,7 @@ export default {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
 /* Heading styling */
@@ -93,6 +94,7 @@ export default {
   margin-bottom: 15px;
   font-size: 1.25rem;
   text-align: center;
+  color: black;
 }
 
 /* Draggable list styling */
@@ -100,6 +102,7 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  color: black;
 }
 
 /* Draggable list item styling */
@@ -110,6 +113,7 @@ export default {
   margin-bottom: 10px;
   border-radius: 4px;
   cursor: grab;
+  color: black;
 }
 
 /* Hover effect for list items */
