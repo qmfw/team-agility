@@ -72,8 +72,6 @@ export default {
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-
-      <v-main style="height: 250px"></v-main>
     </v-layout>
   </v-card>
   <RouterView />
