@@ -163,6 +163,9 @@ export default {
   font-size: 1.25rem;
   text-align: center;
   color: black;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 /* Draggable list styling */
