@@ -2,29 +2,21 @@
   <main>
     <article id="login_area" class="main_article">
       <div class="row-wrapper">
-        <draggable
-          class="row"
-          :list="board"
-          group="a"
-          :scroll-sensitivity="200"
-          :force-fallback="true"
-        >
+        <draggable class="row" :list="board" item-key="id" group="a" :scroll-sensitivity="200" :force-fallback="true">
           <template #item="{ element: parent }">
-            <div class="col-3">
+            <div class="col-3" @mouseover="parent.show = true" @mouseleave="parent.show = false">
               <h3>{{ parent.category }}</h3>
-              <draggable
-                class="list-group"
-                :list="parent.list"
-                group="people"
-                :scroll-sensitivity="200"
-                :force-fallback="true"
-              >
+              <draggable class="list-group" :list="parent.list" item-key="id" group="people" :scroll-sensitivity="200"
+                :force-fallback="true">
                 <template #item="{ element: child }">
                   <div class="list-group-item" :key="child.name">
-                    {{ child.name }}
+                    <p v-if="!child.edit" @click="child.edit = true">{{ child.name }}</p>
+                    <textarea v-else :id="'lgi' + child.id" v-model.lazy="child.name"
+                      @blur="editChildTitle($event, child)"></textarea>
                   </div>
                 </template>
               </draggable>
+              <a v-if="parent.show" @click="addNewTask(parent)">+ Add a New Task</a>
             </div>
           </template>
         </draggable>
@@ -115,7 +107,7 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted() { },
   methods: {
     add: function () {
       this.list.push({ name: "Juan" });
@@ -123,6 +115,18 @@ export default {
     replace: function () {
       this.list = [{ name: "Edgard" }];
     },
+    addNewTask(target) {
+      target.list.push({
+        name: "###", id: 24
+      })
+    },
+    editChildTitle(event, target) {
+      console.log(event.target);//TODO DELETE
+      console.log(event.target.value);//TODO DELETE
+      if (target.name) {
+        target.edit = false;
+      }
+    }
   },
 };
 </script>
@@ -163,9 +167,12 @@ export default {
   font-size: 1.25rem;
   text-align: center;
   color: black;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
 
 /* Draggable list styling */
@@ -185,9 +192,14 @@ export default {
   border-radius: 4px;
   cursor: grab;
   color: black;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  word-wrap: break-word;
+  white-space: break-spaces;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
 
 /* Hover effect for list items */
